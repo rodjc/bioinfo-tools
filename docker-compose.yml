@@ -21,4 +21,6 @@ services:
     volumes:
       - ./input:/home/${USER:-bioinfo}/input
       - ./output:/home/${USER:-bioinfo}/output
+    environment:
+      - TERM=xterm-256color
     tty: true
