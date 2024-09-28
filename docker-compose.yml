@@ -1,0 +1,24 @@
+services:
+  bioinfo-tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DEBIAN_IMAGE: bullseye-slim
+        BCFTOOLS_VERSION: 1.21
+        BOWTIE2_VERSION: 2.5.4
+        BWA_VERSION: 0.7.18
+        FASTQC_VERSION: 0.12.1
+        GATK_VERSION: 4.6.0.0
+        HTSLIB_VERSION: 1.21
+        JAVA_VERSION: 17
+        MINIMAP2_VERSION: 2.28
+        SAMTOOLS_VERSION: 1.21
+        TRIMMOMATIC_VERSION: 0.39
+        USERNAME: bioinfo
+    hostname: bioinfo-host
+    container_name: bioinfo-tools
+    volumes:
+      - ./input:/home/${USERNAME}/input
+      - ./output:/home/${USERNAME}/output
+    tty: true
