@@ -15,10 +15,10 @@ services:
         MINIMAP2_VERSION: 2.28
         SAMTOOLS_VERSION: 1.21
         TRIMMOMATIC_VERSION: 0.39
-        USERNAME: bioinfo
+        USERNAME: ${USER:-bioinfo}
     hostname: bioinfo-host
     container_name: bioinfo-tools
     volumes:
-      - ./input:/home/${USERNAME}/input
-      - ./output:/home/${USERNAME}/output
+      - ./input:/home/${USER:-bioinfo}/input
+      - ./output:/home/${USER:-bioinfo}/output
     tty: true
