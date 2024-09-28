@@ -120,8 +120,8 @@ RUN git clone https://github.com/lh3/minimap2.git && \
 
 # Install Nextflow
 RUN curl -s https://get.nextflow.io | bash && \
-    chmod +x nextflow && \
-    mv nextflow /usr/local/bin
+    chmod +rx nextflow && \
+    mv nextflow /usr/local/bin/ && nextflow
 
 # Install SAMtools
 RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
