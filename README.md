@@ -1,6 +1,6 @@
 # Bioinformatics Tools Docker Environment
 
-This repository provides a Docker environment pre-configured with essential bioinformatics tools, including [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [BWA](http://bio-bwa.sourceforge.net/), [GATK](https://gatk.broadinstitute.org/hc/en-us), and [Minimap2](https://github.com/lh3/minimap2), among others. It also includes [Nextflow](https://www.nextflow.io/) for workflow management. The environment is based on a Debian image and is designed to simplify the setup and usage of common bioinformatics tools in a containerized format.
+This repository provides instructions on how to build a Linux environment pre-configured with essential bioinformatics tools, including [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml), [BWA](http://bio-bwa.sourceforge.net/), [GATK](https://gatk.broadinstitute.org/hc/en-us), and [Minimap2](https://github.com/lh3/minimap2), among others. It also includes [Nextflow](https://www.nextflow.io/) for workflow management. The environment is based on a Debian image and is designed to simplify the setup and usage of common bioinformatics tools in a containerized format.
 
 ## Tools Included
 - **Bowtie2**: v2.5.4
@@ -52,9 +52,9 @@ Change to the project directory:
 cd bioinfo-tools
 ```
 
-### 3. Build and Start the Container
+### 3. Option A: Build and Start the Container
 
-Build the Docker image and start the container using Docker Compose:
+If you want to build the Docker image from the provided `Dockerfile`, use Docker Compose:
 
 ```bash
 docker compose up -d --build
@@ -62,9 +62,25 @@ docker compose up -d --build
 
 This command will build the Docker image using the `Dockerfile` and configurations provided in the `docker-compose.yml` file.
 
+### 3. Option B: Pull the Pre-built Docker Image
+
+If you prefer to skip the build process and use the pre-built Docker image, pull the image and run the container with the following commands:
+
+```bash
+docker pull rjclab/bioinfo-tools:latest
+docker run -it --name bioinfo-tools \
+  --hostname bioinfo-host \
+  -v $(pwd)/input:/home/${USER:-bioinfo}/input \
+  -v $(pwd)/output:/home/${USER:-bioinfo}/output \
+  -e TERM=xterm-256color \
+  rjclab/bioinfo-tools:latest /bin/bash
+```
+
+This will pull the latest version of the pre-built image and run the container with the same settings provided by the `docker-compose.yml` file, including volume mounts for `input` and `output`.
+
 ### 4. Run the Container
 
-To run the bioinformatics tools environment inside the container, execute:
+For both options, you can run the bioinformatics tools environment inside the container using Docker Compose:
 
 ```bash
 docker compose run bioinfo-tools
@@ -72,11 +88,11 @@ docker compose run bioinfo-tools
 
 This will start the container and allow you to run commands inside the environment pre-configured with bioinformatics tools. If you want to share files with your host machine, you can store them in the shared volumes `input` or `output` created.
 
-### Managing the Container
+## Managing the Container
 
 After you have run the bioinformatics environment, you may need to stop or remove the container. There are two key commands to manage this:
 
-#### 1. Stopping the Container
+### 1. Stopping the Container
 
 If you want to **temporarily stop** the container without removing it, you can use:
 
@@ -92,7 +108,7 @@ docker compose start
 
 This command is useful if you want to pause the environment without losing your progress.
 
-#### 2. Removing the Container
+### 2. Removing the Container
 
 To **completely stop and remove** the container, use:
 
