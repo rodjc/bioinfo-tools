@@ -41,7 +41,7 @@ To quickly set up the bioinformatics tools environment, follow these steps:
 First, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/rjc-lab/bioinfo-tools.git
+git clone https://github.com/rodjc/bioinfo-tools.git
 ```
 
 ### 2. Navigate to the Project Directory
@@ -67,13 +67,13 @@ This command will build the Docker image using the `Dockerfile` and configuratio
 If you prefer to skip the build process and use the pre-built Docker image, pull the image and run the container with the following commands:
 
 ```bash
-docker pull rjclab/bioinfo-tools:latest
+docker pull rodjc/bioinfo-tools:latest
 docker run -it --name bioinfo-tools \
   --hostname bioinfo-host \
   -v $(pwd)/input:/home/${USER:-bioinfo}/input \
   -v $(pwd)/output:/home/${USER:-bioinfo}/output \
   -e TERM=xterm-256color \
-  rjclab/bioinfo-tools:latest /bin/bash
+  rodjc/bioinfo-tools:latest /bin/bash
 ```
 
 This will pull the latest version of the pre-built image and run the container with the same settings provided by the `docker-compose.yml` file, including volume mounts for `input` and `output`.
